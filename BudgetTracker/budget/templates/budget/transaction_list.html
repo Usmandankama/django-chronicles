@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Transactions</title>
+</head>
+<body>
+  <h1>Transaction History</h1>
+  {% if transactions %}
+    <ul>
+      {% for txn in transactions %}
+        <li>
+          <strong>{{ txn.title }}</strong> - ₦{{ txn.amount }} 
+          {% comment %} <em>({{ txn.get_type_display }})</em> on {{ txn.date|date:"M d, Y H:i" }} {% endcomment %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No transactions recorded yet.</p>
+  {% endif %}
+</body>
+</html>
