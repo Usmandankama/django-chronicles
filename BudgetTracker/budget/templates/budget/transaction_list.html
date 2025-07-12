@@ -1,21 +1,133 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>My Transactions</title>
-</head>
-<body>
-  <h1>Transaction History</h1>
-  {% if transactions %}
+  <head>
+    <title>My Transactions</title>
+    <style>
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background-color: #f5f7fa;
+        padding: 40px;
+      }
+
+      h1 {
+        color: #2c3e50;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      h2 {
+        color: #34495e;
+        margin-top: 40px;
+      }
+
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      li {
+        background-color: #ffffff;
+        border: 1px solid #ddd;
+        border-left: 6px solid #2ecc71;
+        margin-bottom: 15px;
+        padding: 15px 20px;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        transition: all 0.2s ease;
+      }
+
+      li:hover {
+        transform: scale(1.01);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .expense {
+        border-left-color: #e74c3c;
+      }
+
+      .title {
+        font-weight: 600;
+        font-size: 16px;
+      }
+
+      .amount {
+        float: right;
+        font-weight: bold;
+        color: #2c3e50;
+      }
+
+      .clear {
+        clear: both;
+      }
+
+      .no-data {
+        text-align: center;
+        font-style: italic;
+        color: #777;
+      }
+      .button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #2ecc71;
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        border-radius: 8px;
+        margin-top: 20px;
+        transition: 0.2s ease;
+      }
+
+      .button:hover {
+        background-color: #27ae60;
+      }
+      .add_button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #e30000ff;
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        border-radius: 8px;
+        margin-top: 20px;
+        transition: 0.2s ease;
+      }
+
+      .add_button:hover {
+        background-color: #a50000ff;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Transaction History</h1>
+
+    {% if transactions %}
     <ul>
       {% for txn in transactions %}
-        <li>
-          <strong>{{ txn.title }}</strong> - ₦{{ txn.amount }} 
-          {% comment %} <em>({{ txn.get_type_display }})</em> on {{ txn.date|date:"M d, Y H:i" }} {% endcomment %}
-        </li>
+      <li class="{% if txn.type == 'EX' %}expense{% endif %}">
+        <span class="title">{{ txn.title }}</span>
+        <span class="amount">₦{{ txn.amount }}</span>
+        <div class="clear"></div>
+        {% comment %}<em>({{ txn.get_type_display }})</em> on {{
+        txn.date|date:"M d, Y H:i" }}{% endcomment %}
+      </li>
+      {% endfor %}
+
+      <h2>Expenses</h2>
+
+      {% for exp in expense %}
+      <li class="expense">
+        <span class="title">{{ exp.title }}</span>
+        <span class="amount">₦{{ exp.amount }}</span>
+        <div class="clear"></div>
+        {% comment %}<em>({{ txn.get_type_display }})</em> on {{
+        txn.date|date:"M d, Y H:i" }}{% endcomment %}
+      </li>
       {% endfor %}
     </ul>
-  {% else %}
-    <p>No transactions recorded yet.</p>
-  {% endif %}
-</body>
+    {% else %}
+    <p class="no-data">No transactions recorded yet.</p>
+    {% endif %}
+    <a href="{% url 'add-transaction' %}" class="button">➕ Add Transaction</a>
+    <a href="{% url 'add-expense' %}" class="add_button">➕ Add Expense</a>
+  </body>
 </html>

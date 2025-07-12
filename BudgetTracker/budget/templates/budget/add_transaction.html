@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Add Transaction</title>
+    <style>
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background-color: #f4f6f8;
+        padding: 40px;
+      }
+
+      .form-container {
+        background: white;
+        max-width: 500px;
+        margin: auto;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      h2 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      form label {
+        display: block;
+        margin-top: 15px;
+        font-weight: bold;
+      }
+
+      form input,
+      form select {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+      }
+
+      button {
+        margin-top: 20px;
+        width: 100%;
+        padding: 10px;
+        background-color: #2ecc71;
+        border: none;
+        color: white;
+        font-weight: bold;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #27ae60;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="form-container">
+      <h2>➕ Add a New Transaction</h2>
+      <form method="POST">
+        {% csrf_token %} {{ form.as_p }}
+        <button type="submit">Add Transaction</button>
+      </form>
+    </div>
+  </body>
+</html>
